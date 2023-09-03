@@ -1,0 +1,17 @@
+
+VERSION = "0.0"
+
+# globals
+HEIGHT = 900
+WIDTH = 1600
+CENTER_X = WIDTH // 2
+CENTER_Y = HEIGHT // 2
+
+# colors
+LIGHT_GRAY = 200, 200, 200
+
+
+# options
+LEVELS_NUMBERS = [6]
+DOT_RADIUS = 8
+PLACEMENT_RADIUS = 300
