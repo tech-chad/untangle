@@ -11,7 +11,7 @@ class Main:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption(f"Untangle  Version: {VERSION}")
+        pygame.display.set_caption(f"Untangle  {VERSION}")
         self.splash_screen = splash.SplashScreen(self.screen)
         self.game = game.Game(self.screen)
 
@@ -27,10 +27,16 @@ class Main:
         self.level_num = [self.font.render(f"{x}", True, "black")
                           for x in LEVELS_NUMBERS]
         self.enter_level = self.font.render("Enter Level", True, "black")
-        self.input_box = pygame.rect.Rect((350 + self.enter_level.get_width(), 300, 150, 35))
-        self.go_box = pygame.rect.Rect((self.input_box.topright[0] + 20, self.input_box.y - 10, 100, 55))
+        self.input_box = pygame.rect.Rect((350 + self.enter_level.get_width(),
+                                           300, 150, 35))
+
+        self.go_box = pygame.rect.Rect((self.input_box.topright[0] + 20,
+                                        self.input_box.y - 10, 100, 55))
+
         self.go_text = self.font.render("GO", True, "black")
-        self.go_text_pos = self.go_box.centerx - self.go_text.get_width() // 2, self.go_box.centery - self.go_text.get_height() // 2
+        x = self.go_box.centerx - self.go_text.get_width() // 2
+        y = self.go_box.centery - self.go_text.get_height() // 2
+        self.go_text_pos = x, y
         self.numbers = {pygame.K_0: 0, pygame.K_1: 1, pygame.K_2: 2,
                         pygame.K_3: 3, pygame.K_4: 4, pygame.K_5: 5,
                         pygame.K_6: 6, pygame.K_7: 7, pygame.K_8: 8,
@@ -40,7 +46,6 @@ class Main:
                         pygame.K_KP8: 8, pygame.K_KP9: 9}
         self.user_input = ""
         self.input_selected = False
-
         self.selected_level = None
         self.running = True
 

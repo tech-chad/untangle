@@ -69,10 +69,8 @@ class Dots:
                 cx, cy = conn
                 num = cy * wide + cx
                 dot.add_sec_connection(dot_list[num])
-        # place dot in a circle
         start_points = self.get_points()
         for dot in dot_list:
-            # print("here")
             coord = random.choice(start_points)
             start_points.pop(start_points.index(coord))
             dot.update(coord[0], coord[1])
@@ -82,7 +80,6 @@ class Dots:
         start_list = []
         degree = 360 // self.number_of_dots
         for i in range(self.number_of_dots):
-            # print(i * degree)
             x = CENTER_X + PLACEMENT_RADIUS * math.sin(math.radians(i * degree))
             y = CENTER_Y + PLACEMENT_RADIUS * math.cos(math.radians(i * degree))
             start_list.append((x, y))
