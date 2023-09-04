@@ -47,7 +47,10 @@ class Dots:
 
     def setup_dots(self):
         dot_list = []
-        wide = 3
+        if self.number_of_dots <= 9:
+            wide = 3
+        else:
+            wide = 4
         preset = dot_presets.patterns[self.number_of_dots]
         for i, cell in enumerate(preset):
             y = i // wide * 80 + 20
