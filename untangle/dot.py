@@ -12,6 +12,7 @@ class Dots:
         self.game = game
         self.number_of_dots = game.level
         self.dot_list = self.setup_dots()
+        self.backup_dot_list = self.make_backup()
         self.clicked = None
         self.movement = False
 
@@ -44,6 +45,18 @@ class Dots:
         elif mouse[0] is False and self.clicked is not None:
             self.clicked.clicked = False
             self.clicked = None
+
+    def make_backup(self):
+        backup_list = []
+        for dot in self.dot_list:
+            backup_list.append((dot.x, dot.y))
+        return backup_list
+
+    def reset_dots(self):
+        for i, dot in enumerate(self.dot_list):
+            x, y = self.backup_dot_list[i]
+            dot.x = x
+            dot.y = y
 
     def setup_dots(self):
         dot_list = []

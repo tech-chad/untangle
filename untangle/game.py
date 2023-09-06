@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+import confrimbox
 import dot
 
 from globals import *
@@ -15,6 +16,9 @@ class Game:
         self.dots = None
         font_60 = pygame.font.SysFont("FreeSans", 130)
         self.winner_string = font_60.render("COMPLETED", True, "Purple")
+        self.quit_level = confrimbox.ConfirmBox(screen, "Quit the level?")
+        self.quit_game = confrimbox.ConfirmBox(screen, "Quit the game?")
+        self.reset_level = confrimbox.ConfirmBox(screen, "Reset level?")
 
     def new_game(self, level_number):
         self.level = level_number
@@ -59,7 +63,13 @@ class Game:
     def check_for_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                if self.quit_game.run():
+                    pygame.quit()
+                    sys.exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                self.running = False
+                if self.quit_level.run():
+                    self.running = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                if self.reset_level.run():
+                    self.dots.reset_dots()
+                    pygame.mouse.set_visible(True)
