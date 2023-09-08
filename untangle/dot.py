@@ -62,9 +62,14 @@ class Dots:
         dot_list = []
         if self.number_of_dots <= 9:
             wide = 3
-        else:
+        elif self.number_of_dots <= 25:
             wide = 4
-        preset = dot_presets.patterns[self.number_of_dots]
+        else:
+            wide = 10
+        if self.number_of_dots <= 25:
+            preset = dot_presets.patterns[self.number_of_dots]
+        else:
+            preset = self.auto_set_dots()
         for i, cell in enumerate(preset):
             y = i // wide * 80 + 20
             x = i % wide * 80 + 20
@@ -83,10 +88,68 @@ class Dots:
                 num = cy * wide + cx
                 dot.add_sec_connection(dot_list[num])
         start_points = self.get_points()
+        print(len(start_points))
         for dot in dot_list:
             coord = random.choice(start_points)
             start_points.pop(start_points.index(coord))
             dot.update(coord[0], coord[1])
+        return dot_list
+
+    def auto_set_dots(self):
+        dot_list = dot_presets.base_dots
+        for new_dot in range(10, self.number_of_dots):
+            dot_list.append([[], []])
+            new_x = new_dot % 10
+            new_y = new_dot // 10
+            # which connections set to use
+            if new_dot % 10 == 0:  # first dot in the row
+                x = new_x + 1
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 9][1].append([new_x, new_y])
+                x = new_x
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 10][1].append([new_x, new_y])
+            elif new_dot % 10 == 9:  # last dot in the row
+                x = new_x - 1
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 11][1].append([new_x, new_y])
+                x = new_x
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 10][1].append([new_x, new_y])
+                x = new_x - 1
+                y = new_y
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 1][1].append([new_x, new_y])
+            elif new_dot % 2 == 0:  # even dot
+                # x = new_x + 1
+                # y = new_y - 1
+                # dot_list[new_dot][0].append([x, y])
+                # dot_list[new_dot - 9][1].append([new_x, new_y])
+                x = new_x
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 10][1].append([new_x, new_y])
+                x = new_x - 1
+                y = new_y
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 1][1].append([new_x, new_y])
+            elif new_dot % 2 == 1:  # odd dot
+                x = new_x + 1
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 9][1].append([new_x, new_y])
+                x = new_x
+                y = new_y - 1
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 10][1].append([new_x, new_y])
+                x = new_x - 1
+                y = new_y
+                dot_list[new_dot][0].append([x, y])
+                dot_list[new_dot - 1][1].append([new_x, new_y])
         return dot_list
 
     def get_points(self):
