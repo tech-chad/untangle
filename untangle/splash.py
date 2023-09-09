@@ -16,6 +16,9 @@ class SplashScreen:
         font = pygame.font.SysFont("FreeSans", 30)
         self.msg = font.render("Press any key to start", True, "black")
         self.msg_pos = (CENTER_X - self.msg.get_width() // 2, HEIGHT - 250)
+        self.bg_image = pygame.image.load("resources/untangle.png")
+        self.bg_image_x = CENTER_X - self.bg_image.get_width() // 2
+        self.bg_image_y = CENTER_Y - self.bg_image.get_height() // 2
 
     def run(self):
         while self.running:
@@ -24,6 +27,7 @@ class SplashScreen:
 
     def draw(self):
         self.screen.fill(LIGHT_GRAY)
+        self.screen.blit(self.bg_image, (self.bg_image_x, self.bg_image_y))
         self.screen.blit(self.title, self.title_pos)
         self.screen.blit(self.msg, self.msg_pos)
         pygame.display.flip()
