@@ -63,5 +63,4 @@ class ConfirmBox:
         self.draw()
         while self.running:
             self.check_for_events()
-        pygame.mouse.set_visible(False)
         return self.result

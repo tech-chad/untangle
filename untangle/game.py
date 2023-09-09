@@ -4,7 +4,6 @@ import pygame
 
 import confrimbox
 import dot
-
 from globals import *
 
 

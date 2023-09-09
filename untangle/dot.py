@@ -88,7 +88,6 @@ class Dots:
                 num = cy * wide + cx
                 dot.add_sec_connection(dot_list[num])
         start_points = self.get_points()
-        print(len(start_points))
         for dot in dot_list:
             coord = random.choice(start_points)
             start_points.pop(start_points.index(coord))
@@ -125,10 +124,6 @@ class Dots:
                 dot_list[new_dot][0].append([x, y])
                 dot_list[new_dot - 1][1].append([new_x, new_y])
             elif new_dot % 2 == 0:  # even dot
-                # x = new_x + 1
-                # y = new_y - 1
-                # dot_list[new_dot][0].append([x, y])
-                # dot_list[new_dot - 9][1].append([new_x, new_y])
                 x = new_x
                 y = new_y - 1
                 dot_list[new_dot][0].append([x, y])
