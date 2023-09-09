@@ -35,6 +35,7 @@ class Game:
                 if self.dots.untangled():
                     self.running = False
                     self.display_winner()
+                    pygame.mouse.set_pos((CENTER_X, CENTER_Y))
                     continue
             self.check_for_events()
 
@@ -69,7 +70,8 @@ class Game:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 if self.quit_level.run():
                     self.running = False
+                pygame.mouse.set_visible(True)
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                 if self.reset_level.run():
                     self.dots.reset_dots()
-                    pygame.mouse.set_visible(True)
+                pygame.mouse.set_visible(True)
